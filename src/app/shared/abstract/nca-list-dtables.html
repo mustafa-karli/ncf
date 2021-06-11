@@ -1,0 +1,23 @@
+<p *ngIf="rootpage | async">
+  <a href="#" (click)="newlink()" class="btn btn-primary">New</a>
+</p>
+
+<data-table *ngIf="scenario | async" [title]="scenario.table.titleName" [items]="records" [itemCount]="recordCount" (reload)="reloadItems($event)">
+
+  <ng-container *ngFor="let field of scenario.table.fields">
+    <data-table-column *ngIf="!(field.editStyle !== 'H')"
+      [property]="field.camelName"
+      [header]="field.fieldName"
+      [sortable]="true"
+      [resizable]="true">
+    </data-table-column>
+  </ng-container>
+
+  <data-table-column>
+    <ng-template #dataTableCell let-item="item">
+      <a href="#" (click)="editlink(item)">Edit</a>
+      <a href="#" (click)="deleteSingle(item)">Delete</a>
+    </ng-template>
+  </data-table-column>
+
+</data-table>

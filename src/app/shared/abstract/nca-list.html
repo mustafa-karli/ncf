@@ -1,0 +1,39 @@
+<p *ngIf="rootpage | async">
+  <a href="#" (click)="newlink()" class="btn btn-primary">New</a>
+</p>
+
+<p-table
+   *ngIf="scenario | async"
+    [value]="records"
+    [columns]="scenario.table.fields"
+    (reload)="reloadItems($event)" >
+
+  <ng-template pTemplate="caption">
+      {{scenario.table.titleName}}
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <ng-container *ngFor="let field of scenario.table.fields">
+        <th *ngIf="!(field.editStyle !== 'H')">
+          {{field.fieldName}} <p-sortIcon field="{{field.camelName}}"></p-sortIcon>
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="scenario.table.fields">
+    <tr>
+      <ng-container *ngFor="let field of scenario.table.fields">
+        <td *ngIf="!(field.editStyle !== 'H')">
+          {{rowData[field.camelName]}}
+        </td>
+      </ng-container>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    Total {{recordCount}} records
+  </ng-template>
+
+</p-table>

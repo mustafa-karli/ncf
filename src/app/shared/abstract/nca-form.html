@@ -1,0 +1,26 @@
+<div *ngIf="scenario | async" class="card">
+    <form #f="ngForm" [formGroup]="scenario.table.tableName" (ngSubmit)="update(f.value)" class="p-3 bg-faded">
+      <p-panel header="{{scenario.table.titleName}}">
+  
+      <ng-container *ngFor="let field of scenario.table.fields">
+        <span *ngIf="!(field.editStyle !== 'H')" class="p-float-label">
+          <input  pInputText
+                  #{{field.camelName}}="ngModel"
+                  [(ngModel)]=record[{{field.camelName}}]
+                  formControlName={{field.camelName}}
+                  name={{field.camelName}}
+                  id={{field.camelName}}
+                  type="text"
+                  class="form-control" >
+          <label for="{{field.camelName}}">{{field.camelName}}</label>
+        </span>
+      </ng-container>
+  
+      <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
+      <button *ngIf="record.langcode" type="button" (click)="delete(f.value)" class="btn btn-danger">Delete</button>
+      <a [routerLink]="[rootpage] + '/list'"  class="btn btn-warning">Cancel</a>
+    </p-panel>
+  </form>
+  
+  </div>
+  

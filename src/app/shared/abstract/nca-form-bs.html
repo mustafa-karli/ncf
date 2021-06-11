@@ -1,0 +1,48 @@
+<div *ngIf="scenario | async" class="row">
+  <div class="col-md-10">
+    <form #f="ngForm" (ngSubmit)="update(f.value)">
+
+        <div class="form-group">
+          <label for="langcode">Langcode</label>
+          <input #langcode="ngModel" [(ngModel)]="record.langcode" name="langcode" id="langcode" type="text" class="form-control" required>
+          <div class="alert alert-danger" *ngIf="langcode.touched && langcode.invalid">
+            Language code is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="caption">Caption</label>
+            <input #caption="ngModel" [(ngModel)]="record.caption" name="caption" id="caption" type="text" class="form-control" required>
+            <div class="alert alert-danger" *ngIf="caption.touched && caption.invalid">
+              Caption is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="localeStr">Locale String</label>
+            <input #localeStr="ngModel" [(ngModel)]="record.localeStr" name="localeStr" id="localeStr" type="text" class="form-control" required>
+            <div class="alert alert-danger" *ngIf="localeStr.touched && localeStr.invalid">
+                Locale String is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="flag">Flag</label>
+            <input #flag="ngModel" [(ngModel)]="record.flag" name="flag" id="flag" type="text" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="direction">Direction</label>
+          <select #direction="ngModel" [(ngModel)]="record.direction" name="direction" id="direction" class="form-control" required>
+            <option value="LEFT">LEFT</option>
+            <option value="RIGHT">RIGHT</option>
+          </select>
+        </div>
+
+        <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
+        <button *ngIf="record.langcode" type="button" (click)="delete(f.value)" class="btn btn-danger">Delete</button>
+        <a [routerLink]="[rootpage] + '/list'"  class="btn btn-warning">Cancel</a>
+      </form>
+  </div>
+
+</div>
